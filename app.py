@@ -1,4 +1,5 @@
 from textwrap import dedent
+import flask
 import dash
 from dash import html, dcc
 from dash.dependencies import Input, Output
@@ -9,6 +10,8 @@ from src.config.app_template import (
     row_heights,
     template
 )
+
+server = flask.Flask(__name__)
 
 # Utils
 def blank_fig(height):
@@ -70,7 +73,7 @@ def build_modal_info_overlay(id, side, content):
     return div
 
 # Build Dash layout
-app = dash.Dash(__name__)
+app = dash.Dash(__name__, server=server)
 app.layout = html.Div(
     children=[
         html.Div(

@@ -5,6 +5,7 @@ requests
 beautifulsoup4
 dash
 plotly
+flask
 black
 pylint
 gunicorn
