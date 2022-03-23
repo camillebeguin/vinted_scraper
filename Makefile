@@ -7,4 +7,4 @@ format:
 	black src/*.py
 
 lint:
-	pylint --disable=R,C src/scraper.py src/preprocess.py src/loader.py
+	pylint --disable=R,C src/*.py
