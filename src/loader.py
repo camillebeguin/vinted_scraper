@@ -1,7 +1,7 @@
 import pandas as pd
-from preprocess import VintedPagesProcessor, VintedAdsProcessor
-import config.constant_paths as cst_paths
-import config.constants as cst
+from src.preprocess import VintedPagesProcessor, VintedAdsProcessor
+import src.config.constant_paths as cst_paths
+import src.config.constants as cst
 
 
 def load_preprocessed_vinted_data():

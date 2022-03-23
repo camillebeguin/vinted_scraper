@@ -5,7 +5,7 @@ from dash.dependencies import Input, Output
 import plotly.express as px
 import pandas as pd
 
-from config.app_template import (
+from src.config.app_template import (
     row_heights,
     template
 )

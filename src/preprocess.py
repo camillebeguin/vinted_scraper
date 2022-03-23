@@ -3,9 +3,9 @@ import pandas as pd
 import numpy as np
 from datetime import datetime
 
-import config.constants as cst
-import config.constant_paths as cst_paths
-from config.custom_logging import logger
+import src.config.constants as cst
+import src.config.constant_paths as cst_paths
+from src.config.custom_logging import logger
 
 ### Pages
 class VintedPagesProcessor:

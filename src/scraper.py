@@ -5,7 +5,7 @@ import pandas as pd
 import requests
 from bs4 import BeautifulSoup
 
-from utils import clean_text_scraped_dict
+from src.utils import clean_text_scraped_dict
 
 logger = logging.getLogger(__name__)
 
