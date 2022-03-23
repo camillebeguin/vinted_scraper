@@ -6,4 +6,4 @@ format:
 	black src/*.py
 
 lint:
-	pylint -j 3 --disable=C0116,C0114 src/loader.py src/preprocess.py src/scraper.py
+	pylint --exit-zero --disable=R,C src/loader.py src/scraper.py src/preprocess.py
