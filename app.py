@@ -26,7 +26,7 @@ def blank_fig(height):
     }
 
 # Read data and extract the list of brands
-DATA_PATH = "../data/preprocessed/pages_data.parquet.gz"
+DATA_PATH = "data/preprocessed/pages_data.parquet.gz"
 df = pd.read_parquet(DATA_PATH)
 brand_list = df["brand"].unique()
 
