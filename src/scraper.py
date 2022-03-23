@@ -1,6 +1,6 @@
-import pandas as pd
 import json
 import logging
+import pandas as pd
 
 import requests
 from bs4 import BeautifulSoup
@@ -109,14 +109,14 @@ class VintedAdScraper:
         )
 
         details = {}
-        for k, v in zip(item_details_keys, item_details_values):
-            k = clean_text_scraped_dict(k.text)
-            if k == "Ajouté":
-                v = v.find("time")["datetime"]
+        for it_key, it_val in zip(item_details_keys, item_details_values):
+            it_key = clean_text_scraped_dict(it_key.text)
+            if it_key == "Ajouté":
+                it_val = it_val.find("time")["datetime"]
             else:
-                v = clean_text_scraped_dict(v.text)
+                it_val = clean_text_scraped_dict(it_val.text)
 
-            details[k] = v
+            details[it_key] = it_val
 
         return details
 
