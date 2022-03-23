@@ -1,18 +1,14 @@
-import os
-import time
 from textwrap import dedent
-
 import dash
 from dash import html, dcc
-#import dash_core_components as dcc
-#import dash_html_components as html
 from dash.dependencies import Input, Output
 import plotly.express as px
-
-import numpy as np
 import pandas as pd
 
-from src.config.app_template import *
+from config.app_template import (
+    row_heights,
+    template
+)
 
 # Utils
 def blank_fig(height):
@@ -30,9 +26,9 @@ def blank_fig(height):
     }
 
 # Read data and extract the list of brands
-DATA_PATH = '../data/preprocessed/pages_data.parquet.gz'
+DATA_PATH = "../data/preprocessed/pages_data.parquet.gz"
 df = pd.read_parquet(DATA_PATH)
-brand_list = df['brand'].unique()
+brand_list = df["brand"].unique()
 
 # Overlay for a plot pannel
 def build_modal_info_overlay(id, side, content):
@@ -75,7 +71,6 @@ def build_modal_info_overlay(id, side, content):
 
 # Build Dash layout
 app = dash.Dash(__name__)
-
 app.layout = html.Div(
     children=[
         html.Div(
@@ -104,7 +99,7 @@ app.layout = html.Div(
                         """
             The _**Filters** panel displays user filters such as the brand or catalog.
             """
-                    )
+                    ),
                 ),
                 build_modal_info_overlay(
                     "scraping-indicator",
@@ -165,9 +160,9 @@ app.layout = html.Div(
                             className="container_title",
                         ),
                         html.Br(),
-                        dcc.Markdown('Select a brand: '),
-                        dcc.Dropdown(brand_list, brand_list[0], id='brand-selector'),
-                        html.Div(id='dd-output-container'),
+                        dcc.Markdown("Select a brand: "),
+                        dcc.Dropdown(brand_list, brand_list[0], id="brand-selector"),
+                        html.Div(id="dd-output-container"),
                     ],
                     className="twelve columns pretty_container",
                     style={
@@ -241,60 +236,60 @@ app.layout = html.Div(
                 ),
                 # html.Div(
                 #     children=[
-                        # html.Div(
-                        #     children=[
-                        #         html.H4(
-                        #             [
-                        #                 "Signal Range",
-                        #                 html.Img(
-                        #                     id="show-range-modal",
-                        #                     src="assets/question-circle-solid.svg",
-                        #                     className="info-icon",
-                        #                 ),
-                        #             ],
-                        #             className="container_title",
-                        #         ),
-                        #         dcc.Graph(
-                        #             id="range-histogram",
-                        #             figure=blank_fig(row_heights[2]),
-                        #             config={"displayModeBar": False},
-                        #         ),
-                        #         html.Button(
-                        #             "Clear Selection",
-                        #             id="clear-range",
-                        #             className="reset-button",
-                        #         ),
-                        #     ],
-                        #     className="six columns pretty_container",
-                        #     id="range-div",
-                        # ),
-                        # html.Div(
-                        #     children=[
-                        #         html.H4(
-                        #             [
-                        #                 "Construction Date",
-                        #                 html.Img(
-                        #                     id="show-created-modal",
-                        #                     src="assets/question-circle-solid.svg",
-                        #                     className="info-icon",
-                        #                 ),
-                        #             ],
-                        #             className="container_title",
-                        #         ),
-                        #         dcc.Graph(
-                        #             id="created-histogram",
-                        #             config={"displayModeBar": False},
-                        #             figure=blank_fig(row_heights[2]),
-                        #         ),
-                        #         html.Button(
-                        #             "Clear Selection",
-                        #             id="clear-created",
-                        #             className="reset-button",
-                        #         ),
-                        #     ],
-                        #     className="six columns pretty_container",
-                        #     id="created-div",
-                        # ),
+                # html.Div(
+                #     children=[
+                #         html.H4(
+                #             [
+                #                 "Signal Range",
+                #                 html.Img(
+                #                     id="show-range-modal",
+                #                     src="assets/question-circle-solid.svg",
+                #                     className="info-icon",
+                #                 ),
+                #             ],
+                #             className="container_title",
+                #         ),
+                #         dcc.Graph(
+                #             id="range-histogram",
+                #             figure=blank_fig(row_heights[2]),
+                #             config={"displayModeBar": False},
+                #         ),
+                #         html.Button(
+                #             "Clear Selection",
+                #             id="clear-range",
+                #             className="reset-button",
+                #         ),
+                #     ],
+                #     className="six columns pretty_container",
+                #     id="range-div",
+                # ),
+                # html.Div(
+                #     children=[
+                #         html.H4(
+                #             [
+                #                 "Construction Date",
+                #                 html.Img(
+                #                     id="show-created-modal",
+                #                     src="assets/question-circle-solid.svg",
+                #                     className="info-icon",
+                #                 ),
+                #             ],
+                #             className="container_title",
+                #         ),
+                #         dcc.Graph(
+                #             id="created-histogram",
+                #             config={"displayModeBar": False},
+                #             figure=blank_fig(row_heights[2]),
+                #         ),
+                #         html.Button(
+                #             "Clear Selection",
+                #             id="clear-created",
+                #             className="reset-button",
+                #         ),
+                #     ],
+                #     className="six columns pretty_container",
+                #     id="created-div",
+                # ),
                 #     ]
                 # ),
             ]
@@ -304,7 +299,8 @@ app.layout = html.Div(
                 html.H4("Acknowledgements", style={"margin-top": "0"}),
                 dcc.Markdown(
                     """\
-The Vinted Pricing Dashboard was created in the context of a personal project for the MSc Data Science for Business X-HEC.
+The Vinted Pricing Dashboard was created in the context of a personal project for the 
+MSc Data Science for Business X-HEC.
 """
                 ),
             ],
@@ -320,24 +316,25 @@ The Vinted Pricing Dashboard was created in the context of a personal project fo
 
 # PANEL 1/2: INDICATORS
 @app.callback(
-    Output('scraped-ads-indicator', 'figure'),
-    Input('brand-selector', 'value')
+    Output("scraped-ads-indicator", "figure"), Input("brand-selector", "value")
 )
 def build_scraped_indicator_figure(brand):
-    filtered_df = df[df['brand']==brand]
+    """Build a volume indicator (total scraped ads)
+    """
+    filtered_df = df[df["brand"] == brand]
     n_scraped = filtered_df.shape[0]
 
     # indicator
     scraped_indicator = {
         "data": [
-        {
-            "type": "indicator",
-            "value": n_scraped,
-            "number": {"font": {"color": "#263238", "size": 50}},
-            "mode": "number",
-            "title": "Total ads count"
-        }
-    ],
+            {
+                "type": "indicator",
+                "value": n_scraped,
+                "number": {"font": {"color": "#263238", "size": 50}},
+                "mode": "number",
+                "title": "Total ads count",
+            }
+        ],
         "layout": {
             # "template": {
             #     'data' : {
@@ -345,64 +342,60 @@ def build_scraped_indicator_figure(brand):
             #             'delta' : {'reference': 90}}]}},
             "height": row_heights[0],
             "margin": {"l": 10, "r": 10, "t": 10, "b": 10},
-            },
+        },
     }
     return scraped_indicator
 
-@app.callback(
-    Output('ads-trend-indicator', 'figure'),
-    Input('brand-selector', 'value')
-)
+
+@app.callback(Output("ads-trend-indicator", "figure"), Input("brand-selector", "value"))
 def build_ads_trend_indicator(brand):
-    max_date = df['photo_timestamp'].max()
+    """Build a trend indicator (ads posted in the last 120 to 60 days vs last 60 days)
+    """
+    max_date = df["photo_timestamp"].max()
     duration = 30
-    filtered_df = df[df['brand']==brand]
+    filtered_df = df[df["brand"] == brand]
 
     # Period 1: last 30 days
     min_date_p1 = max_date - pd.DateOffset(days=duration)
-    n_p1 = (filtered_df['photo_timestamp'].between(min_date_p1, max_date)).sum()
+    n_p1 = (filtered_df["photo_timestamp"].between(min_date_p1, max_date)).sum()
 
     # Period 1: last 120 to 60 days
-    min_date_p2 = max_date - pd.DateOffset(days=duration*2)
-    n_p2 = (filtered_df['photo_timestamp'].between(min_date_p2, min_date_p1)).sum()
+    min_date_p2 = max_date - pd.DateOffset(days=duration * 2)
+    n_p2 = (filtered_df["photo_timestamp"].between(min_date_p2, min_date_p1)).sum()
 
     # Indicator
     trend_indicator = {
         "data": [
-        {
-            "type": "indicator",
-            "value": n_p1,
-            "number": {"font": {"color": "#263238", "size": 50}},
-            "mode": "number+delta",
-            "title": f"Ads posted in the last {duration} days"
-        }
-    ],
+            {
+                "type": "indicator",
+                "value": n_p1,
+                "number": {"font": {"color": "#263238", "size": 50}},
+                "mode": "number+delta",
+                "title": f"Ads posted in the last {duration} days",
+            }
+        ],
         "layout": {
-            "template": {
-                'data' : {
-                    'indicator': [{
-                        'delta' : {'reference': n_p2}}]}},
+            "template": {"data": {"indicator": [{"delta": {"reference": n_p2}}]}},
             "height": row_heights[0],
             "margin": {"l": 10, "r": 10, "t": 10, "b": 10},
-            },
+        },
     }
     return trend_indicator
 
+
 # PANEL 3: PRICE DISTRIBUTION
-@app.callback(
-    Output('price-distrib-graph', 'figure'),
-    Input('brand-selector', 'value')
-)
+@app.callback(Output("price-distrib-graph", "figure"), Input("brand-selector", "value"))
 def build_price_distribution_histogram(brand):
-    filtered_df = df[df['brand']==brand]
-    fig = px.histogram(filtered_df['price'], color_discrete_sequence=["#008080"])
+    filtered_df = df[df["brand"] == brand]
+    fig = px.histogram(filtered_df["price"], color_discrete_sequence=["#008080"])
     fig.update_layout(
-        xaxis_title='Selling price (€)',
-        yaxis_title='Ads',
+        xaxis_title="Selling price (€)",
+        yaxis_title="Ads",
         template=template,
-        showlegend=False
+        showlegend=False,
     )
     return fig
+
 
 if __name__ == "__main__":
     app.run_server(debug=True)
